@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Employees";
+}
+
+<input type="text" id="searchBox" class="form-control" placeholder="Search by name..." />
+
+<br />
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div id="employeeTable">
+    @Html.Action("Search", "Employees", new { searchTerm = "", page = 1 })
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    // This script handles the AJAX request for searching and pagination
+    function loadData(searchTerm, page) {
+        $.ajax({
+            url: '@Url.Action("Search", "Employees")',
+            data: { searchTerm: searchTerm, page: page },
+            success: function (data) {
+                $("#employeeTable").html(data);
+            }
+        });
+    }
+    $(document).ready(function () {
+        // This function is called when the user types in the search box
+        $('#searchBox').on('keyup', function () {
+            let term = $(this).val();
+            loadData(term, 1);
+            console.log(`search term is ${term}`)
+        });
+        // This function is called when the user clicks on a pagination link
+        $(document).on('click', '.page-link', function (e) {
+            e.preventDefault();
+            let page = $(this).data('page');
+            let term = $('#searchBox').val();
+            loadData(term, page);
+        });
+    });
+    </script>
+}
