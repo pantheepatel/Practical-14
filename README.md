@@ -66,16 +66,8 @@ Update the `web.config` file with the following connection string:
 
 > **Note:** Modify the connection string if your SQL Server instance differs from `.\SQLEXPRESS`.
 
-## Important Notes
-
-1. Make sure Entity Framework packages are installed in your project
-2. After setting up the database, use the Entity Framework tools to generate the model from the database
-3. The provided connection string assumes a specific model structure - adjust paths if your model is named differently
-
 ## Troubleshooting
 
 If you encounter issues:
 - Verify SQL Server is running
 - Ensure the connection string points to the correct SQL Server instance
-- Check that you have sufficient permissions
-- Verify that Entity Framework is properly configured in your project
